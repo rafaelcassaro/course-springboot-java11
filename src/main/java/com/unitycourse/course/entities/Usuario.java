@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class Usuario implements Serializable {
@@ -23,6 +25,7 @@ public class Usuario implements Serializable {
 	private String phone;	
 	private String password;
 	
+	@JsonIgnore  	//serve para ao enviar ao endpoint n fazer um looping infinto de serializible
 	@OneToMany(mappedBy = "client")
 	private List<Order> orders = new ArrayList<>();
 	
