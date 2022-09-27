@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.unitycourse.course.entities.Usuario;
 
-// responsavel por fazer operacoes com a classe usuario
+//jpaRepository é responsavel por fazer operacoes com a classe usuario
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
 }
