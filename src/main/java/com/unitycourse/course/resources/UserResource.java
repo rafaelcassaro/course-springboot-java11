@@ -25,7 +25,8 @@ public class UserResource {
 		return ResponseEntity.ok().body(list);
 	}
 	
-	@GetMapping(value = "/{id}") //endpoint com valor do id na tabela
+	//endpoint com valor do id na tabela
+	@GetMapping(value = "/{id}") 
 	public ResponseEntity<Usuario> findById(@PathVariable Long id){
 		Usuario obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
