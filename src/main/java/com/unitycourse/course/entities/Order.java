@@ -2,7 +2,9 @@ package com.unitycourse.course.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -31,6 +34,10 @@ public class Order implements Serializable{
 	@ManyToOne //para criar uma relacao no banco de dados de mtos order para 1 usuario
 	@JoinColumn(name = "client_id") //nome da chave estrangeira
 	private Usuario client;
+	
+	//ligar os mtos orderitem com o unico order
+	@OneToMany(mappedBy = "id.order")  //o id do orderItem q tem o pedido
+	private Set<OrderItem> items = new HashSet<>();
 	
 	public Order() {}
 
@@ -76,6 +83,11 @@ public class Order implements Serializable{
 	public void setClient(Usuario client) {
 		this.client = client;
 	}
+	
+	public Set<OrderItem> getItems(){
+		return items;
+	}
+	
 
 	@Override
 	public int hashCode() {
