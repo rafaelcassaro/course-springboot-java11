@@ -1,13 +1,17 @@
 package com.unitycourse.course.resources;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.unitycourse.course.entities.Usuario;
 import com.unitycourse.course.services.UsuarioService;
@@ -32,6 +36,12 @@ public class UserResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	
+	// metodo http POST p insercao @RequestBody é p transaformar o json q vem do http p obj no java
+	@PostMapping
+	public ResponseEntity<Usuario> insert (@RequestBody Usuario obj){
+		obj = service.insert(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).body(obj);	//created(espera um obj uri) para voltar o voltar o padrao http certo 
+	}
 
 }
