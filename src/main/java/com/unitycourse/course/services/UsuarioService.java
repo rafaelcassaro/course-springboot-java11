@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.unitycourse.course.entities.Usuario;
 import com.unitycourse.course.repositories.UsuarioRepository;
+import com.unitycourse.course.services.exceptions.ResourceNotFoundException;
 
 
 @Service		//registra a classe como componente do spring para ser injetado com autowired em outra classe
@@ -23,7 +24,7 @@ public class UsuarioService {
 	
 	public Usuario findById(Long id) {
 		Optional<Usuario> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	public Usuario insert(Usuario obj) {
